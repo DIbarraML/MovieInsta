@@ -1,17 +1,16 @@
 package com.example.data.repository
 
 import com.example.data.commons.Output
-import com.example.data.model.MovieResultDTO
 import com.example.data.remote.MovieRemoteDataSource
+import com.example.domain.MovieResult
 
 class MovieRepositoryImpl(
     private val movieRemoteDataSource: MovieRemoteDataSource
-    ): MovieRepository {
+) : MovieRepository {
 
     override suspend fun getMovies(
         language: String,
         page: Int
-    ): Output<MovieResultDTO> {
-        return movieRemoteDataSource.getMovies(language, page)
-    }
+    ): Output<MovieResult> =
+        movieRemoteDataSource.getMovies(language, page)
 }

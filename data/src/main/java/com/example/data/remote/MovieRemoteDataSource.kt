@@ -3,8 +3,8 @@ package com.example.data.remote
 import android.content.Context
 import com.example.data.ServiceFactory
 import com.example.data.commons.Output
-import com.example.data.model.MovieResultDTO
 import com.example.data.service.MovieService
+import com.example.domain.MovieResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -23,7 +23,7 @@ class MovieRemoteDataSource(
     suspend fun getMovies(
         language: String,
         page: Int
-    ): Output<MovieResultDTO> {
+    ): Output<MovieResult> {
         runCatching {
             withContext(dispatcher) {
                 val result = service.getPopularMovies(
@@ -36,7 +36,7 @@ class MovieRemoteDataSource(
         }.fold(
             onSuccess = { response ->
                 return if (response != null) {
-                    Output.Success(response)
+                    Output.Success(response.asDomainModel())
                 } else {
                     Output.Failure(Exception(MESSAGE_DEFAULT))
                 }
