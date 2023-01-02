@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MovieInsta</string>
+    <string name="movies_popular_title">PELICULAS POPULARES</string>
+    <string name="series_popular_title">SERIES POPULARES</string>
+    <string name="series_trending_title">SERIES EN TENDENCIAS</string>
+    <string name="movies_trending_title">PELICULAS EN TENDENCIAS</string>
 </resources>

@@ -3,7 +3,9 @@ package com.example.data.remote
 import android.content.Context
 import com.example.data.ServiceFactory
 import com.example.data.commons.Output
-import com.example.data.service.MovieService
+import com.example.data.model.EndPoints.API_KEY
+import com.example.data.service.MediaService
+import com.example.domain.Genre
 import com.example.domain.MovieResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -11,25 +13,27 @@ import kotlinx.coroutines.withContext
 
 class MovieRemoteDataSource(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
-    context: Context? = null
+    context: Context
 ) {
 
-    private val service: MovieService =
+    private val service: MediaService =
         ServiceFactory.createRepositoryApi(
-            repositoryApiClass = MovieService::class.java,
+            repositoryApiClass = MediaService::class.java,
             context = context
         )
 
-    suspend fun getMovies(
+    suspend fun getPopularMedia(
         language: String,
-        page: Int
+        page: Int,
+        mediaType: String
     ): Output<MovieResult> {
         runCatching {
             withContext(dispatcher) {
-                val result = service.getPopularMovies(
+                val result = service.getPopularMedia(
+                    mediaType = mediaType,
                     language = language,
                     page = page,
-                    apiKey = "4184cd4bd710debe91877e74fa38c118"
+                    apiKey = API_KEY
                 )
                 result.body()
             }
@@ -42,6 +46,103 @@ class MovieRemoteDataSource(
                 }
             },
             onFailure = {
+                return Output.Failure(it as Exception)
+            }
+        )
+    }
+
+    suspend fun getTrendingMedia(
+        language: String,
+        page: Int,
+        mediaType: String,
+        validTimeTrending: String
+    ): Output<MovieResult> {
+        runCatching {
+            println("TRENDING SUCCES antes ->")
+            println("TRENDING SUCCES URL ->")
+            withContext(dispatcher) {
+                val result = service.getTrendingMedia(
+                    language = language,
+                    page = page,
+                    apiKey = API_KEY,
+                    mediaType = mediaType,
+                    time_window = validTimeTrending
+                )
+                println("TRENDING SUCCES ->${result}")
+                result.body()
+            }
+        }.fold(
+            onSuccess = { response ->
+                println("TRENDING SUCCES response ->${response}")
+                return if (response != null) {
+                    Output.Success(response.asDomainModel())
+                } else {
+                    Output.Failure(Exception(MESSAGE_DEFAULT))
+                }
+            },
+            onFailure = {
+                println("TRENDING SUCCES onFailure ->${it.message}")
+                return Output.Failure(it as Exception)
+            }
+        )
+    }
+
+    suspend fun getSimilarMedia(
+        language: String,
+        page: Int,
+        mediaType: String,
+        mediaId: Int
+    ): Output<MovieResult> {
+        runCatching {
+            withContext(dispatcher) {
+                val result = service.getSimilarMedia(
+                    language = language,
+                    page = page,
+                    apiKey = API_KEY,
+                    mediaType = mediaType,
+                    mediaId = mediaId
+                )
+                result.body()
+            }
+        }.fold(
+            onSuccess = { response ->
+                return if (response != null) {
+                    Output.Success(response.asDomainModel())
+                } else {
+                    Output.Failure(Exception(MESSAGE_DEFAULT))
+                }
+            },
+            onFailure = {
+                return Output.Failure(it as Exception)
+            }
+        )
+    }
+
+    suspend fun getGenresMedia(
+        language: String,
+        mediaType: String,
+    ): Output<List<Genre>> {
+        runCatching {
+            withContext(dispatcher) {
+                println("RESPONMDE DATA SOURCE -> antes ")
+                val result = service.getGenresMedia(
+                    language = language,
+                    apiKey = API_KEY,
+                    mediaType = mediaType
+                )
+                result.body()
+            }
+        }.fold(
+            onSuccess = { response ->
+                println("RESPONMDE DATA SOURCE succes -> $response")
+                return if (response != null) {
+                    Output.Success(response.asDomainModel())
+                } else {
+                    Output.Failure(Exception(MESSAGE_DEFAULT))
+                }
+            },
+            onFailure = {
+                println("RESPONMDE DATA SOURCE failure -> ${it.message} ")
                 return Output.Failure(it as Exception)
             }
         )

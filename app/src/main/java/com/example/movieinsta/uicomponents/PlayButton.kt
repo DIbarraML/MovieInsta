@@ -19,8 +19,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieinsta.ui.theme.MovieInstaTheme
 import com.example.movieinsta.R
+import com.example.movieinsta.ui.theme.MovieInstaTheme
 
 @Composable
 fun PlayButton(modifier: Modifier) {
@@ -50,7 +50,11 @@ fun FindDownloadButton() {
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = "Find Something to Download", style = MaterialTheme.typography.h4, color = Color.Black)
+        Text(
+            text = "Find Something to Download",
+            style = MaterialTheme.typography.h4,
+            color = Color.Black
+        )
     }
 }
 

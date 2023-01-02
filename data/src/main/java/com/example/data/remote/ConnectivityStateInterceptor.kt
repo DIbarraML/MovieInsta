@@ -11,7 +11,8 @@ class ConnectivityStateInterceptor(context: Context) : Interceptor {
     private val context: Context = context.applicationContext
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return try {
             if (!connectivityManager.activeNetworkInfo!!.isAvailable
                 || !connectivityManager.activeNetworkInfo!!.isConnected

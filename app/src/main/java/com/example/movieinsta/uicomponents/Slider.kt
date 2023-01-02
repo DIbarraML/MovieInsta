@@ -14,22 +14,27 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.example.domain.Genre
+import com.example.domain.Movie
 import com.example.movieinsta.R
 import com.example.movieinsta.ui.theme.MovieInstaTheme
 
 @Composable
-fun Slider(url: String) {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .height(600.dp)
-        ) {
+fun Slider(movie: Movie, listGenres: List<Genre>) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(600.dp)
+    ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(url)
+                .data(movie.posterPath)
                 .error(R.color.gray_light)
                 .build(),
             contentDescription = "",
@@ -39,7 +44,11 @@ fun Slider(url: String) {
             contentScale = ContentScale.Crop
         )
 
-        InfoSlider(Modifier.align(Alignment.BottomCenter))
+        InfoSlider(
+            movie = movie,
+            listGenres,
+            Modifier.align(Alignment.BottomCenter)
+        )
     }
 }
 
@@ -54,33 +63,49 @@ private fun PaintPoint(modifier: Modifier) {
 }
 
 @Composable
-private fun LabelsSlider(labels: List<String>, modifier: Modifier) {
+private fun LabelsSlider(labels: List<Genre>, modifier: Modifier) {
+    println("labels -> ${labels.size}")
     Row(
         modifier = modifier
     ) {
-        labels.forEachIndexed { index, label ->
-            Text(text = label, style = MaterialTheme.typography.h5)
-            if (index != labels.size-1) {
-                PaintPoint(Modifier.padding(start = 8.dp, end = 8.dp).width(5.dp).align(Alignment.CenterVertically))
+        labels.forEachIndexed { index, genres ->
+            Text(text = genres.name, style = MaterialTheme.typography.h5)
+            if (index != labels.size - 1) {
+                PaintPoint(
+                    Modifier
+                        .padding(start = 8.dp, end = 8.dp)
+                        .width(5.dp)
+                        .align(Alignment.CenterVertically)
+                )
             }
-            println("Labels ->${label}")
+            println("Labels ->${genres}")
         }
     }
 }
 
 
-
 @Composable
-private fun InfoSlider(modifier: Modifier) {
+private fun InfoSlider(
+    movie: Movie,
+    listGenres: List<Genre>,
+    modifier: Modifier
+) {
 
     Column(modifier = modifier.padding(bottom = 32.dp)) {
 
-        val modifierChild = Modifier.align(CenterHorizontally).padding(bottom = 32.dp)
+        val modifierChild = Modifier
+            .align(CenterHorizontally)
+            .padding(bottom = 32.dp)
 
-        Text(text = "TITULO\nTHINGS", modifier = modifierChild, style = MaterialTheme.typography.h2)
+        Text(
+            text = movie.title,
+            modifier = modifierChild,
+            style = MaterialTheme.typography.h2,
+            fontSize = 36.sp,
+            textAlign = TextAlign.Center
+        )
 
-        val labels = arrayListOf("Daniel", "Ibarra", "Morantes")
-        LabelsSlider(labels, modifierChild)
+        LabelsSlider(listGenres, modifierChild)
 
         Row(
             modifier = Modifier
@@ -96,7 +121,6 @@ private fun InfoSlider(modifier: Modifier) {
         }
     }
 
-    
 
 }
 
@@ -118,6 +142,6 @@ fun Modifier.applyGradient(): Modifier {
 @Composable
 fun DefaultPreviewSliderItem() {
     MovieInstaTheme {
-        Slider("https://i.pinimg.com/originals/e9/fa/e3/e9fae3dcae1a3b978adaf214cac3c607.jpg")
+        //Slider("https://i.pinimg.com/originals/e9/fa/e3/e9fae3dcae1a3b978adaf214cac3c607.jpg")
     }
 }

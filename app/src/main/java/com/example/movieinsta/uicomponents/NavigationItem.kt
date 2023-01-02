@@ -37,15 +37,15 @@ private fun NavigationItem(id: Int, contentDescription: String? = null, title: S
 }
 
 @Composable
-fun BottomNavigationBar(list: List<NavigationItemModel>) {
+fun BottomNavigationBar() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .height(56.dp)
             .background(colorResource(id = R.color.background_navigation_bar)),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
-
-        list.forEach {
+        listItemNavigation().forEach {
             NavigationItem(id = it.icon, title = it.title)
         }
     }
@@ -57,17 +57,17 @@ data class NavigationItemModel(
     val title: String
 )
 
+private fun listItemNavigation() = listOf(
+    NavigationItemModel(icon = R.drawable.icon_home, title = "Home"),
+    NavigationItemModel(icon = R.drawable.icon_search, title = "Search"),
+    NavigationItemModel(icon = R.drawable.icon_download, title = "Download")
+)
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultNavigationBar() {
     MovieInstaTheme {
-        val list = listOf(
-            NavigationItemModel(icon = R.drawable.icon_home, title = "Home"),
-            NavigationItemModel(icon = R.drawable.icon_search, title = "Search"),
-            NavigationItemModel(icon = R.drawable.icon_download, title = "Download")
-
-        )
-        BottomNavigationBar(list)
+        BottomNavigationBar()
     }
 }
 

@@ -25,7 +25,7 @@ fun PreviewItem(url: String) {
             .height(152.dp),
 
         ) {
-       AsyncImage(
+        AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(url)
                 .transformations(CircleCropTransformation())

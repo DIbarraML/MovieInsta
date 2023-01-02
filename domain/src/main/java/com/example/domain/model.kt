@@ -14,9 +14,16 @@ data class Movie(
     val title: String,
     val isVideo: Boolean,
     val voteAverage: Double,
-    val voteCount: Int
+    val voteCount: Int,
+    val name: String?,
+    val mediaType: String
 )
 
 data class MovieResult(
     val movies: List<Movie>
+)
+
+data class Genre(
+    val id: Int,
+    val name: String
 )
