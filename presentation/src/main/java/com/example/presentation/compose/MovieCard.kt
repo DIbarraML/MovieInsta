@@ -3,6 +3,9 @@ package com.example.presentation.compose
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -23,7 +26,7 @@ fun MovieCard(media: Media, onclick: (Media) -> Unit) {
         modifier = Modifier
             .height(184.dp)
             .width(128.dp)
-            .padding(start = 8.dp, end = 8.dp)
+            .padding(start = 8.dp, end = 8.dp, top = 4.dp)
             .clickable { onclick.invoke(media) }
     ) {
         AsyncImage(
@@ -40,12 +43,14 @@ fun MovieCard(media: Media, onclick: (Media) -> Unit) {
 }
 
 @Composable
-fun ListMovieCard(title: Int, list: List<List<Media>>, onclick: (Media) -> Unit) {
-    Text(
-        text = stringResource(id = title),
-        style = MaterialTheme.typography.h4,
-        modifier = Modifier.padding(8.dp)
-    )
+fun ReelMovieCard(title: Int?, list: List<List<Media>>, onclick: (Media) -> Unit) {
+    title?.let {
+        Text(
+            text = stringResource(id = title),
+            style = MaterialTheme.typography.h4,
+            modifier = Modifier.padding(8.dp)
+        )
+    }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -62,5 +67,20 @@ fun ListMovieCard(title: Int, list: List<List<Media>>, onclick: (Media) -> Unit)
             }
         }
 
+    }
+}
+
+@Composable
+fun GridMovieCard(list: List<Media>, onclick: (Media) -> Unit) {
+    println("GridMovieCard -> $list.size")
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(128.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(900.dp)
+    ) {
+        items(list) { media ->
+            MovieCard(media, onclick)
+        }
     }
 }

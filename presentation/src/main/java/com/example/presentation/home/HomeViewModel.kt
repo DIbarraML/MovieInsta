@@ -13,7 +13,6 @@ import com.example.domain.Genre
 import com.example.domain.Media
 import com.example.usecases.GetGenresMedia
 import com.example.usecases.GetPopularMedia
-import com.example.usecases.GetSimilarMedia
 import com.example.usecases.GetTrendingMedia
 import kotlinx.coroutines.launch
 import java.util.*
@@ -21,7 +20,6 @@ import java.util.*
 class HomeViewModel(
     private val getPopularMedia: GetPopularMedia,
     private val getTrendingMedia: GetTrendingMedia,
-    private val getSimilarMedia: GetSimilarMedia,
     private val getGenresMedia: GetGenresMedia
 ) : ViewModel() {
     val media = mutableStateListOf<List<Media>>()

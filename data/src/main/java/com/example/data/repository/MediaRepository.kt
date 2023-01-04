@@ -21,7 +21,6 @@ interface MediaRepository {
 
     suspend fun getSimilar(
         language: String,
-        page: Int,
         mediaType: String,
         mediaId: Int
     ): Output<MediaResult>

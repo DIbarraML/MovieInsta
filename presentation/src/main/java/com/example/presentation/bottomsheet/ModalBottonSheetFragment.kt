@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.domain.Media
 import com.example.presentation.R
 import com.example.presentation.commons.loadImageOrFallback
 import com.example.presentation.databinding.BottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class ModalBottomSheetFragment(private val media: Media) : BottomSheetDialogFragment() {
+class ModalBottomSheetFragment() : BottomSheetDialogFragment() {
 
     lateinit var binding: BottomSheetBinding
 
@@ -23,19 +24,31 @@ class ModalBottomSheetFragment(private val media: Media) : BottomSheetDialogFrag
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        updateUI()
+        val media: Media = arguments?.getSerializable("media") as Media
+        println("onViewCreated  -> $media")
+        updateUI(media)
     }
 
-    private fun updateUI() {
-        binding.posterImage.loadImageOrFallback(media.posterPath, R.drawable.ic_baseline_movie_24)
-        binding.titleText.text = media.title
-        binding.yearText.text = media.releaseDate
-        binding.runtimeText.visibility = View.GONE
-        binding.overviewText.text = media.overview
+    private fun updateUI(media: Media) {
+        binding.apply {
+            posterImage.loadImageOrFallback(media.posterPath, R.drawable.ic_baseline_movie_24)
+            titleText.text = media.title
+            yearText.text = media.releaseDate
+            runtimeText.visibility = View.GONE
+            overviewText.text = media.overview
+            content.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putSerializable("media", media)
+                findNavController().navigate(
+                    R.id.action_modalBottomSheetFragment_to_previewFragment,
+                    bundle
+                )
+            }
+        }
     }
 
     companion object {
         const val TAG: String = "MODAL_BOTTOM"
-        fun newInstance(media: Media) = ModalBottomSheetFragment(media)
+        fun newInstance() = ModalBottomSheetFragment()
     }
 }

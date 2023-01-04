@@ -35,13 +35,11 @@ class MediaRepositoryImpl(
 
     override suspend fun getSimilar(
         language: String,
-        page: Int,
         mediaType: String,
         mediaId: Int
     ): Output<MediaResult> =
         movieRemoteDataSource.getSimilarMedia(
             language = language,
-            page = page,
             mediaType = mediaType,
             mediaId = mediaId
         )
@@ -51,5 +49,4 @@ class MediaRepositoryImpl(
             language = language,
             mediaType = mediaType
         )
-
 }

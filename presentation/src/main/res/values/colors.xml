@@ -9,6 +9,7 @@
     <color name="black_gradient">#C1000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_bar">#1A1A1A</color>
+    <color name="gray_light_text">#C5C5C5</color>
     <color name="gray_light">#7C7C7C</color>
     <color name="wine">#FF831010</color>
     <color name="cream">#B3B3B3</color>

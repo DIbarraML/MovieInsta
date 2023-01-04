@@ -8,7 +8,6 @@ import com.example.presentation.databinding.ActivityMovieInstaBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MovieInstaActivity : AppCompatActivity() {
-
     lateinit var movieInstaBinding: ActivityMovieInstaBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

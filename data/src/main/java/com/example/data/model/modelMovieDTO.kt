@@ -50,7 +50,7 @@ data class MovieDTO(
     )
 
     private fun mediaTypeFromTitle() =
-        if (!title.isNullOrEmpty()) {
+        if (title.isNullOrEmpty()) {
             "tv"
         } else {
             "movie"

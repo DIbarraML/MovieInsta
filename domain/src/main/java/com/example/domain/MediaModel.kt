@@ -1,5 +1,7 @@
 package com.example.domain
 
+import java.io.Serializable
+
 data class Media(
     val isAdult: Boolean,
     val backdropPath: String,
@@ -17,7 +19,7 @@ data class Media(
     val voteCount: Int,
     val name: String?,
     val mediaType: String
-)
+) : Serializable
 
 data class MediaResult(
     val media: List<Media>

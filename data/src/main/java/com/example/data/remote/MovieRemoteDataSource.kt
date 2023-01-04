@@ -84,7 +84,6 @@ class MovieRemoteDataSource(
 
     suspend fun getSimilarMedia(
         language: String,
-        page: Int,
         mediaType: String,
         mediaId: Int
     ): Output<MediaResult> {
@@ -92,7 +91,6 @@ class MovieRemoteDataSource(
             withContext(dispatcher) {
                 val result = service.getSimilarMedia(
                     language = language,
-                    page = page,
                     apiKey = API_KEY,
                     mediaType = mediaType,
                     mediaId = mediaId
@@ -104,6 +102,7 @@ class MovieRemoteDataSource(
                 return if (response != null) {
                     Output.Success(response.asDomainModel())
                 } else {
+
                     Output.Failure(Exception(MESSAGE_DEFAULT))
                 }
             },

@@ -16,4 +16,7 @@
     <string name="add_my_list">Añadido a mi lista</string>
     <string name="descargar">Descargar</string>
     <string name="previsualizar">Previsualizar</string>
+    <string name="ver">Ver</string>
+    <string name="similares">Similares</string>
+    <string name="trabajando">Estamos trabajando en esto</string>
 </resources>

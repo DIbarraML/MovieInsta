@@ -14,19 +14,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.findNavController
 import com.example.data.remote.MovieRemoteDataSource
 import com.example.data.repository.MediaRepositoryImpl
 import com.example.domain.Media
 import com.example.presentation.R
-import com.example.presentation.bottomsheet.ModalBottomSheetFragment
 import com.example.presentation.commons.loadImageOrFallback
 import com.example.presentation.compose.LabelsSlider
-import com.example.presentation.compose.ListMovieCard
+import com.example.presentation.compose.ReelMovieCard
 import com.example.presentation.databinding.FragmentHomeBinding
 import com.example.presentation.theme.MovieInstaTheme
 import com.example.usecases.GetGenresMedia
 import com.example.usecases.GetPopularMedia
-import com.example.usecases.GetSimilarMedia
 import com.example.usecases.GetTrendingMedia
 
 class HomeFragment : Fragment() {
@@ -83,15 +82,15 @@ class HomeFragment : Fragment() {
         binding.composeView.setContent {
             MovieInstaTheme {
                 Column() {
-                    ListMovieCard(title = R.string.movies_popular_title, list = viewModel.media)
+                    ReelMovieCard(title = R.string.movies_popular_title, list = viewModel.media)
                     { movie -> launchBottomSheet(movie) }
-                    ListMovieCard(title = R.string.series_popular_title, list = viewModel.seriesTv)
+                    ReelMovieCard(title = R.string.series_popular_title, list = viewModel.seriesTv)
                     { movie -> launchBottomSheet(movie) }
-                    ListMovieCard(
+                    ReelMovieCard(
                         title = R.string.movies_trending_title,
                         list = viewModel.moviesTrending
                     ) { movie -> launchBottomSheet(movie) }
-                    ListMovieCard(
+                    ReelMovieCard(
                         title = R.string.series_trending_title,
                         list = viewModel.seriesTrending
                     ) { movie -> launchBottomSheet(movie) }
@@ -101,9 +100,14 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun launchBottomSheet(media: Media) =
-        ModalBottomSheetFragment(media)
-            .show(parentFragmentManager, ModalBottomSheetFragment.TAG)
+    private fun launchBottomSheet(media: Media) {
+        val bundle = Bundle()
+        bundle.putSerializable("media", media)
+        findNavController().navigate(
+            R.id.action_navigation_home_to_modalBottomSheetFragment,
+            bundle
+        )
+    }
 
 
     private fun initServices() {
@@ -135,7 +139,6 @@ class HomeViewModelFactory(private val context: Context) :
         return HomeViewModel(
             GetPopularMedia(repository = repository),
             GetTrendingMedia(repository = repository),
-            GetSimilarMedia(repository = repository),
             GetGenresMedia(repository = repository)
         ) as T
     }

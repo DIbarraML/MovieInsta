@@ -6,10 +6,10 @@ class GetGenresMedia(private val repository: MediaRepository) {
 
     suspend operator fun invoke(
         language: String,
-        mediaType: String
+        mediaType: String,
     ) =
         repository.getGenres(
             language = language,
-            mediaType = mediaType
+            mediaType = mediaType,
         )
 }

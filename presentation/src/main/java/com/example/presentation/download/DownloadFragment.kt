@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.presentation.R
+import com.example.presentation.databinding.FragmentDownloadBinding
 
 class DownloadFragment : Fragment() {
+
+    lateinit var binding: FragmentDownloadBinding
 
     companion object {
         fun newInstance() = DownloadFragment()
@@ -20,13 +22,14 @@ class DownloadFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_download, container, false)
+        binding = FragmentDownloadBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(DownloadViewModel::class.java)
-        // TODO: Use the ViewModel
+
     }
 
 }

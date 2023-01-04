@@ -31,21 +31,12 @@ interface MediaService {
         @Path("media_type") mediaType: String,
         @Path("media_id") mediaId: Int,
         @Query("language") language: String,
-        @Query("page") page: Int,
         @Query("api_key") apiKey: String
     ): Response<MovieResultDTO>
 
     @GET("genre/{media_type}/list")
     suspend fun getGenresMedia(
         @Path("media_type") mediaType: String,
-        @Query("language") language: String,
-        @Query("api_key") apiKey: String
-    ): Response<GenresResultDTO>
-
-    @GET("{media_type}/{id_media}/videos")
-    suspend fun getVideoMedia(
-        @Path("media_type") mediaType: String,
-        @Path("id_media") idMedia: String,
         @Query("language") language: String,
         @Query("api_key") apiKey: String
     ): Response<GenresResultDTO>

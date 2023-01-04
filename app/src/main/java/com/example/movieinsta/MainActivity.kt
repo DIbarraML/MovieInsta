@@ -1,6 +1,5 @@
 package com.example.movieinsta
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -57,74 +56,11 @@ class MainActivity : ComponentActivity() {
                             val intent =
                                 Intent(LocalContext.current, MovieInstaActivity::class.java)
                             startActivity(intent)
+                            finish()
                         }
-                        Home()
                     }
                 }
             }
-        }
-    }
-
-    @SuppressLint("CoroutineCreationDuringComposition")
-    @Composable
-    fun Home() {
-
-        Column() {
-            /*PreviewItem(urlPreview)
-            WatchingItem(url)
-            PlayButton(Modifier)
-            FindDownloadButton()*/
-            //NavigationItem(id = R.drawable.icon_home, title = "Home")
-
-            if (viewModel.moviesTrending.isNotEmpty()) {
-                val movie = viewModel.getMediaSlider()
-                val genres = viewModel.findGenresMoviesById(movie.genreIds)
-                Slider(movie, genres)
-            }
-
-            ListMovieCard(
-                title = R.string.movies_popular_title,
-                list = viewModel.media
-            ) { movie ->  }
-            ListMovieCard(title = R.string.series_popular_title, list = viewModel.seriesTv) {}
-            ListMovieCard(
-                title = R.string.movies_trending_title,
-                list = viewModel.moviesTrending
-            ) {}
-            ListMovieCard(
-                title = R.string.series_trending_title,
-                list = viewModel.seriesTrending
-            ) {}
-
-            //ListMovieCard(list = viewModel.movies)
-            //ListMovieCard(list = viewModel.movies)
-            /*ListMovieCard(title = "Peliculas", list = viewModel.movies)
-            ListMovieCard(title = "Peliculas", list = viewModel.movies)*/
-            /*val list = listOf<NavigationItemModel>(
-                NavigationItemModel(icon = R.drawable.icon_home, title = "Home"),
-                NavigationItemModel(icon = R.drawable.icon_search, title = "Search"),
-                NavigationItemModel(icon = R.drawable.icon_download, title = "Download")
-
-            )
-            GlobalScope.launch {
-                val movieRepository = MovieRepositoryImpl(
-                    MovieRemoteDataSource()
-                )
-                val result = movieRepository.getMovies("es", 1)
-                when (result) {
-                    is Output.Success -> {
-                        println("LISTAS -> ${result.value}")
-                    }
-                    is Output.Failure -> {
-                    }
-                }
-                println("INFO -> $result")
-            }
-
-
-            BottomNavigationBar(list)
-            MovieCard(url)
-            Slider("https://i.pinimg.com/originals/e9/fa/e3/e9fae3dcae1a3b978adaf214cac3c607.jpg")*/
         }
     }
 }
@@ -134,6 +70,5 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     MovieInstaTheme {
-        //Home()
     }
 }
