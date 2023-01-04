@@ -23,7 +23,7 @@ import coil.request.ImageRequest
 import com.example.domain.Genre
 import com.example.domain.Movie
 import com.example.movieinsta.R
-import com.example.movieinsta.ui.theme.MovieInstaTheme
+import com.example.presentation.theme.MovieInstaTheme
 
 @Composable
 fun Slider(movie: Movie, listGenres: List<Genre>) {
@@ -78,7 +78,6 @@ private fun LabelsSlider(labels: List<Genre>, modifier: Modifier) {
                         .align(Alignment.CenterVertically)
                 )
             }
-            println("Labels ->${genres}")
         }
     }
 }

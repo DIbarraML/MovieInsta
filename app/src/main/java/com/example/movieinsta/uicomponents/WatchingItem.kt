@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.movieinsta.R
-import com.example.movieinsta.ui.theme.MovieInstaTheme
+import com.example.presentation.theme.MovieInstaTheme
 
 @Composable
 fun WatchingItem(url: String) {

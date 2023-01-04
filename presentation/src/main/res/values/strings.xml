@@ -1,0 +1,19 @@
+<resources>
+    <string name="home">Inicio</string>
+    <string name="play_something">Reproducir Algo</string>
+    <string name="coming_soon">Muy Pronto</string>
+    <string name="downloads">Descargas</string>
+    <string name="search">Buscar</string>
+    <string name="my_list">Mi lista</string>
+    <string name="info">Info</string>
+    <string name="rate">Fecha</string>
+    <string name="share">Compartir</string>
+    <string name="play">Reproducir</string>
+    <string name="movies_popular_title">PELICULAS POPULARES</string>
+    <string name="series_popular_title">SERIES POPULARES</string>
+    <string name="series_trending_title">SERIES EN TENDENCIAS</string>
+    <string name="movies_trending_title">PELICULAS EN TENDENCIAS</string>
+    <string name="add_my_list">Añadido a mi lista</string>
+    <string name="descargar">Descargar</string>
+    <string name="previsualizar">Previsualizar</string>
+</resources>

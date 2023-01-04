@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieinsta.R
-import com.example.movieinsta.ui.theme.MovieInstaTheme
+import com.example.presentation.theme.MovieInstaTheme
 
 @Composable
 fun PlayButton(modifier: Modifier) {

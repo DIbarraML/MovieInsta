@@ -1,5 +1,6 @@
 package com.example.movieinsta.uicomponents
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -17,12 +18,12 @@ import com.example.domain.Movie
 import com.example.movieinsta.R
 
 @Composable
-fun MovieCard(movie: Movie) {
+fun MovieCard(movie: Movie, onclick: (Movie) -> Unit) {
     Box(
         modifier = Modifier
             .height(184.dp)
             .width(128.dp)
-            .padding(start = 8.dp, end = 8.dp)
+            .padding(start = 8.dp, end = 8.dp).clickable { onclick.invoke(movie) }
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
@@ -38,7 +39,7 @@ fun MovieCard(movie: Movie) {
 }
 
 @Composable
-fun ListMovieCard(title: Int, list: List<List<Movie>>) {
+fun ListMovieCard(title: Int, list: List<List<Movie>>, onclick: (Movie) -> Unit) {
     //if (list.isNotEmpty()) {
     Text(
         text = stringResource(id = title),
@@ -56,7 +57,7 @@ fun ListMovieCard(title: Int, list: List<List<Movie>>) {
                     .padding(start = 8.dp, bottom = 8.dp)
             ) {
                 items(it) { movieList ->
-                    MovieCard(movie = movieList)
+                    MovieCard(movie = movieList, onclick)
                 }
             }
         }

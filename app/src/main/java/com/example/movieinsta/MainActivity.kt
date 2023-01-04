@@ -1,6 +1,7 @@
 package com.example.movieinsta
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,9 +14,11 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.movieinsta.ui.theme.MovieInstaTheme
+import com.example.presentation.theme.MovieInstaTheme
 import com.example.movieinsta.uicomponents.*
+import com.example.presentation.MovieInstaActivity
 
 class MainActivity : ComponentActivity() {
 
@@ -26,6 +29,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
+
             viewModel.getPopularMovies()
             viewModel.getPopularMovies()
             viewModel.getPopularTv()
@@ -49,6 +54,11 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                             .verticalScroll(rememberScrollState())
                     ) {
+
+                        Column {
+                            val intent = Intent(LocalContext.current, MovieInstaActivity::class.java)
+                            startActivity(intent)
+                        }
                         Home()
                     }
                 }
@@ -74,10 +84,10 @@ class MainActivity : ComponentActivity() {
                 Slider(movie, genres)
             }
 
-            ListMovieCard(title = R.string.movies_popular_title, list = viewModel.movies)
-            ListMovieCard(title = R.string.series_popular_title, list = viewModel.seriesTv)
-            ListMovieCard(title = R.string.movies_trending_title, list = viewModel.moviesTrending)
-            ListMovieCard(title = R.string.series_trending_title, list = viewModel.seriesTrending)
+            ListMovieCard(title = R.string.movies_popular_title, list = viewModel.movies) { movie ->  println("MOVIES -> ${movie.title}") }
+            ListMovieCard(title = R.string.series_popular_title, list = viewModel.seriesTv) {}
+            ListMovieCard(title = R.string.movies_trending_title, list = viewModel.moviesTrending) {}
+            ListMovieCard(title = R.string.series_trending_title, list = viewModel.seriesTrending) {}
 
             //ListMovieCard(list = viewModel.movies)
             //ListMovieCard(list = viewModel.movies)
