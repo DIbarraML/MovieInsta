@@ -14,21 +14,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.domain.Movie
+import com.example.domain.Media
 import com.example.presentation.R
 
 @Composable
-fun MovieCard(movie: Movie, onclick: (Movie) -> Unit) {
+fun MovieCard(media: Media, onclick: (Media) -> Unit) {
     Box(
         modifier = Modifier
             .height(184.dp)
             .width(128.dp)
             .padding(start = 8.dp, end = 8.dp)
-            .clickable { onclick.invoke(movie) }
+            .clickable { onclick.invoke(media) }
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(movie.posterPath)
+                .data(media.posterPath)
                 .error(R.color.gray_light)
                 .build(),
             contentDescription = "",
@@ -40,7 +40,7 @@ fun MovieCard(movie: Movie, onclick: (Movie) -> Unit) {
 }
 
 @Composable
-fun ListMovieCard(title: Int, list: List<List<Movie>>, onclick: (Movie) -> Unit) {
+fun ListMovieCard(title: Int, list: List<List<Media>>, onclick: (Media) -> Unit) {
     Text(
         text = stringResource(id = title),
         style = MaterialTheme.typography.h4,
@@ -57,7 +57,7 @@ fun ListMovieCard(title: Int, list: List<List<Movie>>, onclick: (Movie) -> Unit)
                     .padding(start = 8.dp, bottom = 8.dp)
             ) {
                 items(it) { movieList ->
-                    MovieCard(movie = movieList, onclick)
+                    MovieCard(media = movieList, onclick)
                 }
             }
         }

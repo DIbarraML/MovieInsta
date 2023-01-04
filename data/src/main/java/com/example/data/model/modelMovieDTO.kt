@@ -1,7 +1,7 @@
 package com.example.data.model
 
-import com.example.domain.Movie
-import com.example.domain.MovieResult
+import com.example.domain.Media
+import com.example.domain.MediaResult
 import com.google.gson.annotations.SerializedName
 
 data class MovieDTO(
@@ -30,7 +30,7 @@ data class MovieDTO(
     val name: String?,
     val mediaType: String?
 ) {
-    fun asDomainModel() = Movie(
+    fun asDomainModel() = Media(
         id = id,
         isAdult = adult,
         backdropPath = EndPoints.IMAGE_BASE_URL + backDropPath,
@@ -67,11 +67,11 @@ data class MovieResultDTO(
     @SerializedName("total_results")
     val totalResults: Int
 ) {
-    fun asDomainModel(): MovieResult {
-        val listMovie = mutableListOf<Movie>()
+    fun asDomainModel(): MediaResult {
+        val listMedia = mutableListOf<Media>()
         moviesDTOS.map {
-            listMovie.add(it.asDomainModel())
+            listMedia.add(it.asDomainModel())
         }
-        return MovieResult(listMovie)
+        return MediaResult(listMedia)
     }
 }

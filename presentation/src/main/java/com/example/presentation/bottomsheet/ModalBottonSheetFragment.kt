@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.domain.Movie
+import com.example.domain.Media
 import com.example.presentation.R
 import com.example.presentation.commons.loadImageOrFallback
 import com.example.presentation.databinding.BottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class ModalBottomSheetFragment(private val movie: Movie) : BottomSheetDialogFragment() {
+class ModalBottomSheetFragment(private val media: Media) : BottomSheetDialogFragment() {
 
     lateinit var binding: BottomSheetBinding
 
@@ -24,19 +24,18 @@ class ModalBottomSheetFragment(private val movie: Movie) : BottomSheetDialogFrag
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         updateUI()
-        println("MOVIE BOTTOM SHEET-> ${movie.id}")
     }
 
     private fun updateUI() {
-        binding.posterImage.loadImageOrFallback(movie.posterPath, R.drawable.ic_baseline_movie_24)
-        binding.titleText.text = movie.title
-        binding.yearText.text = movie.releaseDate
+        binding.posterImage.loadImageOrFallback(media.posterPath, R.drawable.ic_baseline_movie_24)
+        binding.titleText.text = media.title
+        binding.yearText.text = media.releaseDate
         binding.runtimeText.visibility = View.GONE
-        binding.overviewText.text = movie.overview
+        binding.overviewText.text = media.overview
     }
 
     companion object {
         const val TAG: String = "MODAL_BOTTOM"
-        fun newInstance(movie: Movie) = ModalBottomSheetFragment(movie)
+        fun newInstance(media: Media) = ModalBottomSheetFragment(media)
     }
 }

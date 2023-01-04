@@ -1,6 +1,6 @@
 package com.example.domain
 
-data class Movie(
+data class Media(
     val isAdult: Boolean,
     val backdropPath: String,
     val genreIds: List<Int>,
@@ -19,8 +19,8 @@ data class Movie(
     val mediaType: String
 )
 
-data class MovieResult(
-    val movies: List<Movie>
+data class MediaResult(
+    val media: List<Media>
 )
 
 data class Genre(

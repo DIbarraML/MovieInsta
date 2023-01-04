@@ -8,7 +8,7 @@ import com.example.data.commons.Output
 import com.example.data.model.MediaType
 import com.example.data.model.ValidTypeTrending
 import com.example.domain.Genre
-import com.example.domain.Movie
+import com.example.domain.Media
 import com.example.usecases.GetGenresMedia
 import com.example.usecases.GetPopularMedia
 import com.example.usecases.GetSimilarMedia
@@ -23,16 +23,16 @@ class HomeViewModel(
     private val getGenresMedia: GetGenresMedia
 ) : ViewModel() {
 
-    val movies = mutableStateListOf<List<Movie>>()
+    val media = mutableStateListOf<List<Media>>()
     private var pageMovie = mutableStateOf(0)
 
-    val seriesTv = mutableStateListOf<List<Movie>>()
+    val seriesTv = mutableStateListOf<List<Media>>()
     private var pageTv = mutableStateOf(0)
 
-    val seriesTrending = mutableStateListOf<List<Movie>>()
+    val seriesTrending = mutableStateListOf<List<Media>>()
     private var pageSeriesTrending = mutableStateOf(0)
 
-    val moviesTrending = mutableStateListOf<List<Movie>>()
+    val moviesTrending = mutableStateListOf<List<Media>>()
     private var pageMoviesTrending = mutableStateOf(0)
 
     val genreMovie = mutableStateListOf<Genre>()
@@ -49,7 +49,7 @@ class HomeViewModel(
                 mediaType = MediaType.MOVIE.name.lowercase(Locale.ROOT)
             )) {
                 is Output.Success -> {
-                    movies.add(output.value.movies)
+                    media.add(output.value.media)
                 }
                 is Output.Failure -> {
                 }
@@ -66,7 +66,7 @@ class HomeViewModel(
                 MediaType.TV.name.lowercase()
             )) {
                 is Output.Success -> {
-                    seriesTv.add(output.value.movies)
+                    seriesTv.add(output.value.media)
                 }
                 is Output.Failure -> {
                 }
@@ -84,10 +84,9 @@ class HomeViewModel(
                 validTypeTrending = ValidTypeTrending.DAY.name.lowercase()
             )) {
                 is Output.Success -> {
-                    seriesTrending.add(output.value.movies)
+                    seriesTrending.add(output.value.media)
                 }
                 is Output.Failure -> {
-                    println("TRENDING FAILURE")
                 }
             }
         }
@@ -103,8 +102,7 @@ class HomeViewModel(
                 validTypeTrending = ValidTypeTrending.DAY.name.lowercase()
             )) {
                 is Output.Success -> {
-                    println("SUCCES MOVIES -> ${output.value}")
-                    moviesTrending.add(output.value.movies)
+                    moviesTrending.add(output.value.media)
                 }
                 is Output.Failure -> {
                 }
@@ -120,7 +118,6 @@ class HomeViewModel(
                 mediaType = MediaType.TV.name.lowercase(),
             )) {
                 is Output.Success -> {
-                    println("getGenresTv")
                     genreTv.addAll(output.value)
                 }
                 is Output.Failure -> {
@@ -137,11 +134,9 @@ class HomeViewModel(
                 mediaType = MediaType.MOVIE.name.lowercase(),
             )) {
                 is Output.Success -> {
-                    println("getGenresMovies")
                     genreMovie.addAll(output.value)
                 }
                 is Output.Failure -> {
-                    println("getGenresMovies failure ->")
                 }
             }
         }

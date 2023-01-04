@@ -21,12 +21,12 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.domain.Genre
-import com.example.domain.Movie
+import com.example.domain.Media
 import com.example.movieinsta.R
 import com.example.presentation.theme.MovieInstaTheme
 
 @Composable
-fun Slider(movie: Movie, listGenres: List<Genre>) {
+fun Slider(media: Media, listGenres: List<Genre>) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -34,7 +34,7 @@ fun Slider(movie: Movie, listGenres: List<Genre>) {
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(movie.posterPath)
+                .data(media.posterPath)
                 .error(R.color.gray_light)
                 .build(),
             contentDescription = "",
@@ -45,7 +45,7 @@ fun Slider(movie: Movie, listGenres: List<Genre>) {
         )
 
         InfoSlider(
-            movie = movie,
+            media = media,
             listGenres,
             Modifier.align(Alignment.BottomCenter)
         )
@@ -64,7 +64,6 @@ private fun PaintPoint(modifier: Modifier) {
 
 @Composable
 private fun LabelsSlider(labels: List<Genre>, modifier: Modifier) {
-    println("labels -> ${labels.size}")
     Row(
         modifier = modifier
     ) {
@@ -85,7 +84,7 @@ private fun LabelsSlider(labels: List<Genre>, modifier: Modifier) {
 
 @Composable
 private fun InfoSlider(
-    movie: Movie,
+    media: Media,
     listGenres: List<Genre>,
     modifier: Modifier
 ) {
@@ -97,7 +96,7 @@ private fun InfoSlider(
             .padding(bottom = 32.dp)
 
         Text(
-            text = movie.title,
+            text = media.title,
             modifier = modifierChild,
             style = MaterialTheme.typography.h2,
             fontSize = 36.sp,

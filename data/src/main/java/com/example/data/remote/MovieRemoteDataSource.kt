@@ -6,7 +6,7 @@ import com.example.data.commons.Output
 import com.example.data.model.EndPoints.API_KEY
 import com.example.data.service.MediaService
 import com.example.domain.Genre
-import com.example.domain.MovieResult
+import com.example.domain.MediaResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -26,7 +26,7 @@ class MovieRemoteDataSource(
         language: String,
         page: Int,
         mediaType: String
-    ): Output<MovieResult> {
+    ): Output<MediaResult> {
         runCatching {
             withContext(dispatcher) {
                 val result = service.getPopularMedia(
@@ -56,10 +56,8 @@ class MovieRemoteDataSource(
         page: Int,
         mediaType: String,
         validTimeTrending: String
-    ): Output<MovieResult> {
+    ): Output<MediaResult> {
         runCatching {
-            println("TRENDING SUCCES antes ->")
-            println("TRENDING SUCCES URL ->")
             withContext(dispatcher) {
                 val result = service.getTrendingMedia(
                     language = language,
@@ -68,12 +66,10 @@ class MovieRemoteDataSource(
                     mediaType = mediaType,
                     time_window = validTimeTrending
                 )
-                println("TRENDING SUCCES ->${result}")
                 result.body()
             }
         }.fold(
             onSuccess = { response ->
-                println("TRENDING SUCCES response ->${response}")
                 return if (response != null) {
                     Output.Success(response.asDomainModel())
                 } else {
@@ -81,7 +77,6 @@ class MovieRemoteDataSource(
                 }
             },
             onFailure = {
-                println("TRENDING SUCCES onFailure ->${it.message}")
                 return Output.Failure(it as Exception)
             }
         )
@@ -92,7 +87,7 @@ class MovieRemoteDataSource(
         page: Int,
         mediaType: String,
         mediaId: Int
-    ): Output<MovieResult> {
+    ): Output<MediaResult> {
         runCatching {
             withContext(dispatcher) {
                 val result = service.getSimilarMedia(
@@ -124,7 +119,6 @@ class MovieRemoteDataSource(
     ): Output<List<Genre>> {
         runCatching {
             withContext(dispatcher) {
-                println("RESPONMDE DATA SOURCE -> antes ")
                 val result = service.getGenresMedia(
                     language = language,
                     apiKey = API_KEY,
@@ -134,7 +128,6 @@ class MovieRemoteDataSource(
             }
         }.fold(
             onSuccess = { response ->
-                println("RESPONMDE DATA SOURCE succes -> $response")
                 return if (response != null) {
                     Output.Success(response.asDomainModel())
                 } else {
@@ -142,7 +135,6 @@ class MovieRemoteDataSource(
                 }
             },
             onFailure = {
-                println("RESPONMDE DATA SOURCE failure -> ${it.message} ")
                 return Output.Failure(it as Exception)
             }
         )

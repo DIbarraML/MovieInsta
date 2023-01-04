@@ -41,4 +41,12 @@ interface MediaService {
         @Query("language") language: String,
         @Query("api_key") apiKey: String
     ): Response<GenresResultDTO>
+
+    @GET("{media_type}/{id_media}/videos")
+    suspend fun getVideoMedia(
+        @Path("media_type") mediaType: String,
+        @Path("id_media") idMedia: String,
+        @Query("language") language: String,
+        @Query("api_key") apiKey: String
+    ): Response<GenresResultDTO>
 }

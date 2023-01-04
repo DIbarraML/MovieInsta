@@ -16,7 +16,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.data.remote.MovieRemoteDataSource
 import com.example.data.repository.MediaRepositoryImpl
-import com.example.domain.Movie
+import com.example.domain.Media
 import com.example.presentation.R
 import com.example.presentation.bottomsheet.ModalBottomSheetFragment
 import com.example.presentation.commons.loadImageOrFallback
@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.movieSlider.observe(viewLifecycleOwner) { movie ->
+        viewModel.mediaSlider.observe(viewLifecycleOwner) { movie ->
             binding.apply {
                 containerSlider.isVisible = true
                 layoutSlider.imageSlider.loadImageOrFallback(
@@ -83,7 +83,7 @@ class HomeFragment : Fragment() {
         binding.composeView.setContent {
             MovieInstaTheme {
                 Column() {
-                    ListMovieCard(title = R.string.movies_popular_title, list = viewModel.movies)
+                    ListMovieCard(title = R.string.movies_popular_title, list = viewModel.media)
                     { movie -> launchBottomSheet(movie) }
                     ListMovieCard(title = R.string.series_popular_title, list = viewModel.seriesTv)
                     { movie -> launchBottomSheet(movie) }
@@ -101,8 +101,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun launchBottomSheet(movie: Movie) =
-        ModalBottomSheetFragment(movie)
+    private fun launchBottomSheet(media: Media) =
+        ModalBottomSheetFragment(media)
             .show(parentFragmentManager, ModalBottomSheetFragment.TAG)
 
 

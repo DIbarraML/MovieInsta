@@ -3,7 +3,7 @@ package com.example.data.repository
 import com.example.data.commons.Output
 import com.example.data.remote.MovieRemoteDataSource
 import com.example.domain.Genre
-import com.example.domain.MovieResult
+import com.example.domain.MediaResult
 
 class MediaRepositoryImpl(
     private val movieRemoteDataSource: MovieRemoteDataSource
@@ -13,7 +13,7 @@ class MediaRepositoryImpl(
         language: String,
         page: Int,
         mediaType: String
-    ): Output<MovieResult> =
+    ): Output<MediaResult> =
         movieRemoteDataSource.getPopularMedia(
             language = language,
             page = page,
@@ -25,7 +25,7 @@ class MediaRepositoryImpl(
         page: Int,
         mediaType: String,
         validTimeTrending: String
-    ): Output<MovieResult> =
+    ): Output<MediaResult> =
         movieRemoteDataSource.getTrendingMedia(
             language = language,
             page = page,
@@ -38,7 +38,7 @@ class MediaRepositoryImpl(
         page: Int,
         mediaType: String,
         mediaId: Int
-    ): Output<MovieResult> =
+    ): Output<MediaResult> =
         movieRemoteDataSource.getSimilarMedia(
             language = language,
             page = page,
